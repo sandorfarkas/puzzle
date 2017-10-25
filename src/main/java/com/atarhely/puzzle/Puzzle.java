@@ -6,7 +6,7 @@ import java.util.*;
 
 @RequiredArgsConstructor
 public class Puzzle {
-    private final int MAX_MOVES = 1_000_000;
+    private final int MAX_MOVES = 2_000_000;
 
     final Set<Integer> closedNodes = new HashSet<>();
     private final Queue<Node> openNodes = new ArrayDeque<>();
@@ -105,12 +105,6 @@ public class Puzzle {
     }
 
     boolean isClosed(Node node) {
-        /*for (Node closedNode : closedNodes) {
-            if (node.compareBoardTo(closedNode.getBoard())) {
-                return true;
-            }
-        }
-        return false;*/
         return closedNodes.contains(node.hashCode());
     }
 
@@ -167,34 +161,35 @@ public class Puzzle {
         startBoard.put(1, Color.YELLOW);
         startBoard.put(2, Color.YELLOW);
         startBoard.put(3, Color.YELLOW);
-        startBoard.put(4, Color.YELLOW);
-        startBoard.put(5, Color.ORANGE);
+        startBoard.put(4, Color.BLUE);
+        startBoard.put(5, Color.YELLOW);
         startBoard.put(6, Color.ORANGE);
         startBoard.put(7, Color.ORANGE);
-        startBoard.put(8, Color.YELLOW);
-        startBoard.put(9, Color.BLUE);
-        startBoard.put(10, Color.ORANGE);
-        startBoard.put(11, Color.YELLOW);
+        startBoard.put(8, Color.BLUE);
+        startBoard.put(9, Color.ORANGE);
+        startBoard.put(10, Color.BLUE);
+        startBoard.put(11, Color.BLUE);
         startBoard.put(12, Color.YELLOW);
         startBoard.put(13, Color.BLUE);
-        startBoard.put(14, Color.ORANGE);
-        startBoard.put(15, Color.BLUE);
+        startBoard.put(14, Color.BLUE);
+        startBoard.put(15, Color.YELLOW);
         startBoard.put(16, Color.BLUE);
-        startBoard.put(17, Color.BLUE);
-        startBoard.put(18, Color.BLUE);
-        startBoard.put(19, Color.BLUE);
-        /*Map<Integer, Color> startBoard = new HashMap<>();
-        startBoard.put(1, Color.YELLOW);
-        startBoard.put(2, Color.YELLOW);
+        startBoard.put(17, Color.ORANGE);
+        startBoard.put(18, Color.YELLOW);
+        startBoard.put(19, Color.ORANGE);
+
+        // test state
+        /*startBoard.put(1, Color.ORANGE);
+        startBoard.put(2, Color.BLUE);
         startBoard.put(3, Color.YELLOW);
         startBoard.put(4, Color.YELLOW);
-        startBoard.put(5, Color.ORANGE);
-        startBoard.put(6, Color.BLUE);
+        startBoard.put(5, Color.YELLOW);
+        startBoard.put(6, Color.YELLOW);
         startBoard.put(7, Color.BLUE);
-        startBoard.put(8, Color.YELLOW);
-        startBoard.put(9, Color.BLUE);
-        startBoard.put(10, Color.BLUE);
-        startBoard.put(11, Color.YELLOW);
+        startBoard.put(8, Color.BLUE);
+        startBoard.put(9, Color.YELLOW);
+        startBoard.put(10, Color.YELLOW);
+        startBoard.put(11, Color.BLUE);
         startBoard.put(12, Color.YELLOW);
         startBoard.put(13, Color.ORANGE);
         startBoard.put(14, Color.ORANGE);
@@ -234,5 +229,4 @@ public class Puzzle {
         puzzle.init();
         puzzle.solve();
     }
-
 }
