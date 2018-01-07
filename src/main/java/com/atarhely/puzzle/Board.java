@@ -1,0 +1,51 @@
+package com.atarhely.puzzle;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Board {
+	public static final Map<Integer, Color> SOLUTION_LEFT_YELLOW = new HashMap<>();
+	public static final Map<Integer, Color> SOLUTION_LEFT_BLUE = new HashMap<>();
+	
+	static {
+		SOLUTION_LEFT_YELLOW.put(1, Color.YELLOW);
+		SOLUTION_LEFT_YELLOW.put(2, Color.YELLOW);
+		SOLUTION_LEFT_YELLOW.put(3, Color.YELLOW);
+		SOLUTION_LEFT_YELLOW.put(4, Color.YELLOW);
+		SOLUTION_LEFT_YELLOW.put(5, Color.ORANGE);
+		SOLUTION_LEFT_YELLOW.put(6, Color.ORANGE);
+		SOLUTION_LEFT_YELLOW.put(7, Color.ORANGE);
+		SOLUTION_LEFT_YELLOW.put(8, Color.YELLOW);
+		SOLUTION_LEFT_YELLOW.put(9, Color.ORANGE);
+		SOLUTION_LEFT_YELLOW.put(10, Color.ORANGE);
+		SOLUTION_LEFT_YELLOW.put(11, Color.YELLOW);
+		SOLUTION_LEFT_YELLOW.put(12, Color.YELLOW);
+		SOLUTION_LEFT_YELLOW.put(13, Color.BLUE);
+		SOLUTION_LEFT_YELLOW.put(14, Color.BLUE);
+		SOLUTION_LEFT_YELLOW.put(15, Color.BLUE);
+		SOLUTION_LEFT_YELLOW.put(16, Color.BLUE);
+		SOLUTION_LEFT_YELLOW.put(17, Color.BLUE);
+		SOLUTION_LEFT_YELLOW.put(18, Color.BLUE);
+		SOLUTION_LEFT_YELLOW.put(19, Color.BLUE);
+		
+		SOLUTION_LEFT_BLUE.put(1, Color.BLUE);
+		SOLUTION_LEFT_BLUE.put(2, Color.BLUE);
+		SOLUTION_LEFT_BLUE.put(3, Color.BLUE);
+		SOLUTION_LEFT_BLUE.put(4, Color.BLUE);
+		SOLUTION_LEFT_BLUE.put(5, Color.ORANGE);
+		SOLUTION_LEFT_BLUE.put(6, Color.ORANGE);
+		SOLUTION_LEFT_BLUE.put(7, Color.ORANGE);
+		SOLUTION_LEFT_BLUE.put(8, Color.BLUE);
+		SOLUTION_LEFT_BLUE.put(9, Color.ORANGE);
+		SOLUTION_LEFT_BLUE.put(10, Color.ORANGE);
+		SOLUTION_LEFT_BLUE.put(11, Color.BLUE);
+		SOLUTION_LEFT_BLUE.put(12, Color.BLUE);
+		SOLUTION_LEFT_BLUE.put(13, Color.YELLOW);
+		SOLUTION_LEFT_BLUE.put(14, Color.YELLOW);
+		SOLUTION_LEFT_BLUE.put(15, Color.YELLOW);
+		SOLUTION_LEFT_BLUE.put(16, Color.YELLOW);
+		SOLUTION_LEFT_BLUE.put(17, Color.YELLOW);
+		SOLUTION_LEFT_BLUE.put(18, Color.YELLOW);
+		SOLUTION_LEFT_BLUE.put(19, Color.YELLOW);
+	}
+}
