@@ -7,6 +7,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class Puzzle {
     private final int MAX_MOVES = 20_000_000;
+	Map<Integer, Color> targetBoard = new HashMap<>();
     
     final Set<Integer> closedNodes = new HashSet<>();
     private final Queue<Node> openNodes = new ArrayDeque<>();
@@ -134,7 +135,7 @@ public class Puzzle {
                 break;
             }
             Node node = openNodes.remove();
-            if (isTarget(node)) {
+            if (isTarget(node, targetBoard)) {
                 System.out.println(node.getMovesFromPath());
                 return;
             }
@@ -171,93 +172,9 @@ public class Puzzle {
     }
 
     private void init() {
-        Map<Integer, Color> startBoard = new HashMap<>();
-        startBoard.put(1, Color.YELLOW);
-        startBoard.put(2, Color.YELLOW);
-        startBoard.put(3, Color.YELLOW);
-        startBoard.put(4, Color.YELLOW);
-        startBoard.put(5, Color.ORANGE);
-        startBoard.put(6, Color.ORANGE);
-        startBoard.put(7, Color.YELLOW);
-        startBoard.put(8, Color.BLUE);
-        startBoard.put(9, Color.ORANGE);
-        startBoard.put(10, Color.ORANGE);
-        startBoard.put(11, Color.YELLOW);
-        startBoard.put(12, Color.YELLOW);
-        startBoard.put(13, Color.BLUE);
-        startBoard.put(14, Color.BLUE);
-        startBoard.put(15, Color.ORANGE);
-        startBoard.put(16, Color.BLUE);
-        startBoard.put(17, Color.BLUE);
-        startBoard.put(18, Color.BLUE);
-        startBoard.put(19, Color.BLUE);
-        
-        /*startBoard.put(1, Color.BLUE);
-        startBoard.put(2, Color.BLUE);
-        startBoard.put(3, Color.ORANGE);
-        startBoard.put(4, Color.BLUE);
-        startBoard.put(5, Color.YELLOW);
-        startBoard.put(6, Color.ORANGE);
-        startBoard.put(7, Color.ORANGE);
-        startBoard.put(8, Color.BLUE);
-        startBoard.put(9, Color.ORANGE);
-        startBoard.put(10, Color.ORANGE);
-        startBoard.put(11, Color.BLUE);
-        startBoard.put(12, Color.BLUE);
-        startBoard.put(13, Color.YELLOW);
-        startBoard.put(14, Color.YELLOW);
-        startBoard.put(15, Color.YELLOW);
-        startBoard.put(16, Color.YELLOW);
-        startBoard.put(17, Color.BLUE);
-        startBoard.put(18, Color.YELLOW);
-        startBoard.put(19, Color.YELLOW);*/
-
-        Node start = new Node(new ArrayList<>(), startBoard);
+        Node start = new Node(new ArrayList<>(), Board.SOLUTION_LEFT_BLUE);
+        targetBoard = Board.STARS;
         openNodes.add(start);
-        
-        /*Map<Integer, Color> targetBoard1 = new HashMap<>();
-        targetBoard1.put(1, Color.YELLOW);
-        targetBoard1.put(2, Color.YELLOW);
-        targetBoard1.put(3, Color.YELLOW);
-        targetBoard1.put(4, Color.YELLOW);
-        targetBoard1.put(5, Color.ORANGE);
-        targetBoard1.put(6, Color.ORANGE);
-        targetBoard1.put(7, Color.ORANGE);
-        targetBoard1.put(8, Color.YELLOW);
-        targetBoard1.put(9, Color.ORANGE);
-        targetBoard1.put(10, Color.ORANGE);
-        targetBoard1.put(11, Color.YELLOW);
-        targetBoard1.put(12, Color.YELLOW);
-        targetBoard1.put(13, Color.BLUE);
-        targetBoard1.put(14, Color.BLUE);
-        targetBoard1.put(15, Color.BLUE);
-        targetBoard1.put(16, Color.BLUE);
-        targetBoard1.put(17, Color.BLUE);
-        targetBoard1.put(18, Color.BLUE);
-        targetBoard1.put(19, Color.BLUE);
-        target1 = new Node(new ArrayList<>(), targetBoard1);
-	
-		Map<Integer, Color> targetBoard2 = new HashMap<>();
-        targetBoard2.put(1, Color.BLUE);
-		targetBoard2.put(2, Color.BLUE);
-		targetBoard2.put(3, Color.BLUE);
-		targetBoard2.put(4, Color.BLUE);
-		targetBoard2.put(5, Color.ORANGE);
-		targetBoard2.put(6, Color.ORANGE);
-		targetBoard2.put(7, Color.ORANGE);
-		targetBoard2.put(8, Color.BLUE);
-		targetBoard2.put(9, Color.ORANGE);
-		targetBoard2.put(10, Color.ORANGE);
-		targetBoard2.put(11, Color.BLUE);
-		targetBoard2.put(12, Color.BLUE);
-		targetBoard2.put(13, Color.YELLOW);
-		targetBoard2.put(14, Color.YELLOW);
-		targetBoard2.put(15, Color.YELLOW);
-		targetBoard2.put(16, Color.YELLOW);
-		targetBoard2.put(17, Color.YELLOW);
-		targetBoard2.put(18, Color.YELLOW);
-		targetBoard2.put(19, Color.YELLOW);
-		target2 = new Node(new ArrayList<>(), targetBoard1);*/
     }
 
     public static void main(String[] args) {
