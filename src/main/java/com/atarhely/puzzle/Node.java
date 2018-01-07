@@ -30,6 +30,19 @@ public class Node {
         return this.board.equals(board);
     }
 
+    public String getMovesFromPath() {
+        StringBuilder sb = new StringBuilder();
+        for (Integer i : path) {
+            switch (i) {
+                case 0: sb.append("->)").append(System.lineSeparator()); break;
+                case 1: sb.append("<-)").append(System.lineSeparator()); break;
+                case 2: sb.append("(->").append(System.lineSeparator()); break;
+                case 3: sb.append("(<-").append(System.lineSeparator()); break;
+            }
+        }
+        return sb.toString();
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
