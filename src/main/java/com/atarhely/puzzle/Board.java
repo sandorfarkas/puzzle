@@ -1,198 +1,105 @@
 package com.atarhely.puzzle;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-class Board {
-	static final Map<Integer, Color> SOLUTION_LEFT_YELLOW = new HashMap<>();
-	static final Map<Integer, Color> SOLUTION_LEFT_BLUE = new HashMap<>();
-	static final Map<Integer, Color> MIXED_BOARD = new HashMap<>();
-	static final Map<Integer, Color> MIXED_BOARD_UPSIDE_DOWN = new HashMap<>();
-	static final Map<Integer, Color> MIDDLE_ELEMENTS_SWAPPED_VER_1 = new HashMap<>();
-	static final Map<Integer, Color> MIDDLE_ELEMENTS_SWAPPED_VER_2 = new HashMap<>();
-	static final Map<Integer, Color> OUTER_SWAPPED = new HashMap<>();
-	static final Map<Integer, Color> START = new HashMap<>();
-	static final Map<Integer, Color> STARS = new HashMap<>();
-	
-	static {
-		SOLUTION_LEFT_YELLOW.put(1, Color.YELLOW);
-		SOLUTION_LEFT_YELLOW.put(2, Color.YELLOW);
-		SOLUTION_LEFT_YELLOW.put(3, Color.YELLOW);
-		SOLUTION_LEFT_YELLOW.put(4, Color.YELLOW);
-		SOLUTION_LEFT_YELLOW.put(5, Color.ORANGE);
-		SOLUTION_LEFT_YELLOW.put(6, Color.ORANGE);
-		SOLUTION_LEFT_YELLOW.put(7, Color.ORANGE);
-		SOLUTION_LEFT_YELLOW.put(8, Color.YELLOW);
-		SOLUTION_LEFT_YELLOW.put(9, Color.ORANGE);
-		SOLUTION_LEFT_YELLOW.put(10, Color.ORANGE);
-		SOLUTION_LEFT_YELLOW.put(11, Color.YELLOW);
-		SOLUTION_LEFT_YELLOW.put(12, Color.YELLOW);
-		SOLUTION_LEFT_YELLOW.put(13, Color.BLUE);
-		SOLUTION_LEFT_YELLOW.put(14, Color.BLUE);
-		SOLUTION_LEFT_YELLOW.put(15, Color.BLUE);
-		SOLUTION_LEFT_YELLOW.put(16, Color.BLUE);
-		SOLUTION_LEFT_YELLOW.put(17, Color.BLUE);
-		SOLUTION_LEFT_YELLOW.put(18, Color.BLUE);
-		SOLUTION_LEFT_YELLOW.put(19, Color.BLUE);
-		
-		SOLUTION_LEFT_BLUE.put(1, Color.BLUE);
-		SOLUTION_LEFT_BLUE.put(2, Color.BLUE);
-		SOLUTION_LEFT_BLUE.put(3, Color.BLUE);
-		SOLUTION_LEFT_BLUE.put(4, Color.BLUE);
-		SOLUTION_LEFT_BLUE.put(5, Color.ORANGE);
-		SOLUTION_LEFT_BLUE.put(6, Color.ORANGE);
-		SOLUTION_LEFT_BLUE.put(7, Color.ORANGE);
-		SOLUTION_LEFT_BLUE.put(8, Color.BLUE);
-		SOLUTION_LEFT_BLUE.put(9, Color.ORANGE);
-		SOLUTION_LEFT_BLUE.put(10, Color.ORANGE);
-		SOLUTION_LEFT_BLUE.put(11, Color.BLUE);
-		SOLUTION_LEFT_BLUE.put(12, Color.BLUE);
-		SOLUTION_LEFT_BLUE.put(13, Color.YELLOW);
-		SOLUTION_LEFT_BLUE.put(14, Color.YELLOW);
-		SOLUTION_LEFT_BLUE.put(15, Color.YELLOW);
-		SOLUTION_LEFT_BLUE.put(16, Color.YELLOW);
-		SOLUTION_LEFT_BLUE.put(17, Color.YELLOW);
-		SOLUTION_LEFT_BLUE.put(18, Color.YELLOW);
-		SOLUTION_LEFT_BLUE.put(19, Color.YELLOW);
-		
-		MIXED_BOARD.put(1, Color.YELLOW);
-		MIXED_BOARD.put(2, Color.YELLOW);
-		MIXED_BOARD.put(3, Color.YELLOW);
-		MIXED_BOARD.put(4, Color.YELLOW);
-		MIXED_BOARD.put(5, Color.ORANGE);
-		MIXED_BOARD.put(6, Color.ORANGE);
-		MIXED_BOARD.put(7, Color.YELLOW);
-		MIXED_BOARD.put(8, Color.BLUE);
-		MIXED_BOARD.put(9, Color.ORANGE);
-		MIXED_BOARD.put(10, Color.ORANGE);
-		MIXED_BOARD.put(11, Color.YELLOW);
-		MIXED_BOARD.put(12, Color.YELLOW);
-		MIXED_BOARD.put(13, Color.BLUE);
-		MIXED_BOARD.put(14, Color.BLUE);
-		MIXED_BOARD.put(15, Color.ORANGE);
-		MIXED_BOARD.put(16, Color.BLUE);
-		MIXED_BOARD.put(17, Color.BLUE);
-		MIXED_BOARD.put(18, Color.BLUE);
-		MIXED_BOARD.put(19, Color.BLUE);
-		
-		MIXED_BOARD_UPSIDE_DOWN.put(1, Color.BLUE);
-		MIXED_BOARD_UPSIDE_DOWN.put(2, Color.BLUE);
-		MIXED_BOARD_UPSIDE_DOWN.put(3, Color.ORANGE);
-		MIXED_BOARD_UPSIDE_DOWN.put(4, Color.BLUE);
-		MIXED_BOARD_UPSIDE_DOWN.put(5, Color.YELLOW);
-		MIXED_BOARD_UPSIDE_DOWN.put(6, Color.ORANGE);
-		MIXED_BOARD_UPSIDE_DOWN.put(7, Color.ORANGE);
-		MIXED_BOARD_UPSIDE_DOWN.put(8, Color.BLUE);
-		MIXED_BOARD_UPSIDE_DOWN.put(9, Color.ORANGE);
-		MIXED_BOARD_UPSIDE_DOWN.put(10, Color.ORANGE);
-		MIXED_BOARD_UPSIDE_DOWN.put(11, Color.BLUE);
-		MIXED_BOARD_UPSIDE_DOWN.put(12, Color.BLUE);
-		MIXED_BOARD_UPSIDE_DOWN.put(13, Color.YELLOW);
-		MIXED_BOARD_UPSIDE_DOWN.put(14, Color.YELLOW);
-		MIXED_BOARD_UPSIDE_DOWN.put(15, Color.YELLOW);
-		MIXED_BOARD_UPSIDE_DOWN.put(16, Color.YELLOW);
-		MIXED_BOARD_UPSIDE_DOWN.put(17, Color.BLUE);
-		MIXED_BOARD_UPSIDE_DOWN.put(18, Color.YELLOW);
-		MIXED_BOARD_UPSIDE_DOWN.put(19, Color.YELLOW);
-		
-		MIDDLE_ELEMENTS_SWAPPED_VER_1.put(1, Color.YELLOW);
-		MIDDLE_ELEMENTS_SWAPPED_VER_1.put(2, Color.YELLOW);
-		MIDDLE_ELEMENTS_SWAPPED_VER_1.put(3, Color.YELLOW);
-		MIDDLE_ELEMENTS_SWAPPED_VER_1.put(4, Color.YELLOW);
-		MIDDLE_ELEMENTS_SWAPPED_VER_1.put(5, Color.ORANGE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_1.put(6, Color.ORANGE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_1.put(7, Color.ORANGE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_1.put(8, Color.YELLOW);
-		MIDDLE_ELEMENTS_SWAPPED_VER_1.put(9, Color.ORANGE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_1.put(10, Color.ORANGE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_1.put(11, Color.BLUE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_1.put(12, Color.BLUE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_1.put(13, Color.BLUE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_1.put(14, Color.BLUE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_1.put(15, Color.BLUE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_1.put(16, Color.BLUE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_1.put(17, Color.BLUE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_1.put(18, Color.YELLOW);
-		MIDDLE_ELEMENTS_SWAPPED_VER_1.put(19, Color.YELLOW);
-		
-		MIDDLE_ELEMENTS_SWAPPED_VER_2.put(1, Color.YELLOW);
-		MIDDLE_ELEMENTS_SWAPPED_VER_2.put(2, Color.YELLOW);
-		MIDDLE_ELEMENTS_SWAPPED_VER_2.put(3, Color.YELLOW);
-		MIDDLE_ELEMENTS_SWAPPED_VER_2.put(4, Color.YELLOW);
-		MIDDLE_ELEMENTS_SWAPPED_VER_2.put(5, Color.ORANGE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_2.put(6, Color.ORANGE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_2.put(7, Color.ORANGE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_2.put(8, Color.BLUE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_2.put(9, Color.ORANGE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_2.put(10, Color.ORANGE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_2.put(11, Color.BLUE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_2.put(12, Color.BLUE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_2.put(13, Color.BLUE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_2.put(14, Color.BLUE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_2.put(15, Color.BLUE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_2.put(16, Color.BLUE);
-		MIDDLE_ELEMENTS_SWAPPED_VER_2.put(17, Color.YELLOW);
-		MIDDLE_ELEMENTS_SWAPPED_VER_2.put(18, Color.YELLOW);
-		MIDDLE_ELEMENTS_SWAPPED_VER_2.put(19, Color.YELLOW);
+import static com.atarhely.puzzle.Color.*;
+import static java.util.Map.entry;
 
-		OUTER_SWAPPED.put(1, Color.BLUE);
-		OUTER_SWAPPED.put(2, Color.BLUE);
-		OUTER_SWAPPED.put(3, Color.BLUE);
-		OUTER_SWAPPED.put(4, Color.BLUE);
-		OUTER_SWAPPED.put(5, Color.ORANGE);
-		OUTER_SWAPPED.put(6, Color.ORANGE);
-		OUTER_SWAPPED.put(7, Color.ORANGE);
-		OUTER_SWAPPED.put(8, Color.YELLOW);
-		OUTER_SWAPPED.put(9, Color.ORANGE);
-		OUTER_SWAPPED.put(10, Color.ORANGE);
-		OUTER_SWAPPED.put(11, Color.YELLOW);
-		OUTER_SWAPPED.put(12, Color.YELLOW);
-		OUTER_SWAPPED.put(13, Color.YELLOW);
-		OUTER_SWAPPED.put(14, Color.YELLOW);
-		OUTER_SWAPPED.put(15, Color.YELLOW);
-		OUTER_SWAPPED.put(16, Color.YELLOW);
-		OUTER_SWAPPED.put(17, Color.BLUE);
-		OUTER_SWAPPED.put(18, Color.BLUE);
-		OUTER_SWAPPED.put(19, Color.BLUE);
-		
-		START.put(1, Color.YELLOW);
-		START.put(2, Color.BLUE);
-		START.put(3, Color.ORANGE);
-		START.put(4, Color.YELLOW);
-		START.put(5, Color.YELLOW);
-		START.put(6, Color.ORANGE);
-		START.put(7, Color.ORANGE);
-		START.put(8, Color.BLUE);
-		START.put(9, Color.ORANGE);
-		START.put(10, Color.BLUE);
-		START.put(11, Color.BLUE);
-		START.put(12, Color.ORANGE);
-		START.put(13, Color.BLUE);
-		START.put(14, Color.BLUE);
-		START.put(15, Color.YELLOW);
-		START.put(16, Color.BLUE);
-		START.put(17, Color.YELLOW);
-		START.put(18, Color.YELLOW);
-		START.put(19, Color.YELLOW);
-		
-		STARS.put(1, Color.ORANGE);
-		STARS.put(2, Color.YELLOW);
-		STARS.put(3, Color.YELLOW);
-		STARS.put(4, Color.ORANGE);
-		STARS.put(5, Color.YELLOW);
-		STARS.put(6, Color.YELLOW);
-		STARS.put(7, Color.BLUE);
-		STARS.put(8, Color.BLUE);
-		STARS.put(9, Color.BLUE);
-		STARS.put(10, Color.ORANGE);
-		STARS.put(11, Color.YELLOW);
-		STARS.put(12, Color.YELLOW);
-		STARS.put(13, Color.ORANGE);
-		STARS.put(14, Color.BLUE);
-		STARS.put(15, Color.BLUE);
-		STARS.put(16, Color.ORANGE);
-		STARS.put(17, Color.YELLOW);
-		STARS.put(18, Color.BLUE);
-		STARS.put(19, Color.BLUE);
-	}
+@RequiredArgsConstructor
+class Board {
+    private static final Board SOLUTION_LEFT_BLUE = new Board(Map.ofEntries(
+            entry(1, BLUE),
+            entry(2, BLUE),
+            entry(3, BLUE),
+            entry(4, BLUE),
+            entry(5, ORANGE),
+            entry(6, ORANGE),
+            entry(7, ORANGE),
+            entry(8, BLUE),
+            entry(9, ORANGE),
+            entry(10, ORANGE),
+            entry(11, BLUE),
+            entry(12, BLUE),
+            entry(13, YELLOW),
+            entry(14, YELLOW),
+            entry(15, YELLOW),
+            entry(16, YELLOW),
+            entry(17, YELLOW),
+            entry(18, YELLOW),
+            entry(19, YELLOW)
+    ));
+    private static final Board SOLUTION_LEFT_YELLOW = new Board(Map.ofEntries(
+            entry(1, YELLOW),
+            entry(2, YELLOW),
+            entry(3, YELLOW),
+            entry(4, YELLOW),
+            entry(5, ORANGE),
+            entry(6, ORANGE),
+            entry(7, ORANGE),
+            entry(8, YELLOW),
+            entry(9, ORANGE),
+            entry(10, ORANGE),
+            entry(11, YELLOW),
+            entry(12, YELLOW),
+            entry(13, BLUE),
+            entry(14, BLUE),
+            entry(15, BLUE),
+            entry(16, BLUE),
+            entry(17, BLUE),
+            entry(18, BLUE),
+            entry(19, BLUE)
+    ));
+    static final Board START = new Board(Map.ofEntries(
+            entry(1, YELLOW),
+            entry(2, BLUE),
+            entry(3, ORANGE),
+            entry(4, YELLOW),
+            entry(5, YELLOW),
+            entry(6, ORANGE),
+            entry(7, ORANGE),
+            entry(8, BLUE),
+            entry(9, ORANGE),
+            entry(10, BLUE),
+            entry(11, BLUE),
+            entry(12, ORANGE),
+            entry(13, BLUE),
+            entry(14, BLUE),
+            entry(15, YELLOW),
+            entry(16, BLUE),
+            entry(17, YELLOW),
+            entry(18, YELLOW),
+            entry(19, YELLOW)
+    ));
+    static final List<Board> TARGET_BOARDS = List.of(SOLUTION_LEFT_BLUE, SOLUTION_LEFT_YELLOW);
+
+    @Getter private final Map<Integer, Color> colorMap;
+
+    Board swapColors(Map<Integer, Integer> swaps) {
+        Map<Integer, Color> swappedColorMap = new HashMap<>();
+        for (Map.Entry<Integer, Color> colorEntry : colorMap.entrySet()) {
+            swappedColorMap.put(colorEntry.getKey(),
+                    (swaps.containsKey(colorEntry.getKey())
+                            ? colorMap.get(swaps.get(colorEntry.getKey()))
+                            : colorEntry.getValue()));
+        }
+        return new Board(swappedColorMap);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Board board = (Board) o;
+        for (Map.Entry<Integer, Color> entry : board.colorMap.entrySet()) {
+            if (!entry.getValue().equals(this.colorMap.get(entry.getKey()))) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

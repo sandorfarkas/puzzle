@@ -4,127 +4,129 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.*;
 
+import static java.util.Map.entry;
+
 @RequiredArgsConstructor
 public class Puzzle {
     private static final int MAX_MOVES = 20_000_000;
-    Map<Integer, Color> targetBoard = new HashMap<>();
 
-    final Set<Integer> closedNodes = new HashSet<>();
+    private final Set<Integer> closedNodeHashes = new HashSet<>();
     private final Queue<Node> openNodes = new ArrayDeque<>();
 
-    Node operationRightWheelRight(Node node) {
-        Map<Integer, Color> board = node.getBoard();
-        Map<Integer, Color> newBoard = node.getBoardCopy();
-
-        newBoard.put(15, board.get(7));
-        newBoard.put(16, board.get(9));
-        newBoard.put(7, board.get(13));
-        newBoard.put(9, board.get(14));
-        newBoard.put(13, board.get(15));
-        newBoard.put(14, board.get(16));
-        newBoard.put(6, board.get(5));
-        newBoard.put(5, board.get(17));
-        newBoard.put(17, board.get(6));
-        newBoard.put(10, board.get(18));
-        newBoard.put(18, board.get(19));
-        newBoard.put(19, board.get(10));
-
-        List<Integer> newPath = node.getPathCopy();
-        newPath.add(0);
-        Node newNode = new Node(newPath, newBoard);
-        return newNode;
+    private Node operationRightWheelRight(Node node) {
+        Map<Integer, Integer> swaps = Map.ofEntries(
+                entry(15, 7),
+                entry(16, 9),
+                entry(7, 13),
+                entry(9, 14),
+                entry(13, 15),
+                entry(14, 16),
+                entry(6, 5),
+                entry(5, 17),
+                entry(17, 6),
+                entry(10, 18),
+                entry(18, 19),
+                entry(19, 10)
+        );
+        return createExtendedNode(node, swaps, 0);
     }
 
-    Node operationRightWheelLeft(Node node) {
-        Map<Integer, Color> board = node.getBoard();
-        Map<Integer, Color> newBoard = node.getBoardCopy();
-
-        newBoard.put(15, board.get(13));
-        newBoard.put(16, board.get(14));
-        newBoard.put(7, board.get(15));
-        newBoard.put(9, board.get(16));
-        newBoard.put(13, board.get(7));
-        newBoard.put(14, board.get(9));
-        newBoard.put(6, board.get(17));
-        newBoard.put(5, board.get(6));
-        newBoard.put(17, board.get(5));
-        newBoard.put(10, board.get(19));
-        newBoard.put(18, board.get(10));
-        newBoard.put(19, board.get(18));
-
-        List<Integer> newPath = node.getPathCopy();
-        newPath.add(1);
-        Node newNode = new Node(newPath, newBoard);
-        return newNode;
+    private Node operationRightWheelLeft(Node node) {
+        Map<Integer, Integer> swaps = Map.ofEntries(
+                entry(15, 13),
+                entry(16, 14),
+                entry(7, 15),
+                entry(9, 16),
+                entry(13, 7),
+                entry(14, 9),
+                entry(6, 17),
+                entry(5, 6),
+                entry(17, 5),
+                entry(10, 19),
+                entry(18, 10),
+                entry(19, 18)
+        );
+        return createExtendedNode(node, swaps, 1);
     }
 
-    Node operationLeftWheelRight(Node node) {
-        Map<Integer, Color> board = node.getBoard();
-        Map<Integer, Color> newBoard = node.getBoardCopy();
-
-        newBoard.put(1, board.get(3));
-        newBoard.put(2, board.get(4));
-        newBoard.put(3, board.get(5));
-        newBoard.put(4, board.get(6));
-        newBoard.put(5, board.get(1));
-        newBoard.put(6, board.get(2));
-        newBoard.put(7, board.get(8));
-        newBoard.put(8, board.get(9));
-        newBoard.put(9, board.get(7));
-        newBoard.put(10, board.get(11));
-        newBoard.put(11, board.get(12));
-        newBoard.put(12, board.get(10));
-
-        List<Integer> newPath = node.getPathCopy();
-        newPath.add(2);
-        Node newNode = new Node(newPath, newBoard);
-        return newNode;
+    private Node operationLeftWheelRight(Node node) {
+        Map<Integer, Integer> swaps = Map.ofEntries(
+                entry(1, 3),
+                entry(2, 4),
+                entry(3, 5),
+                entry(4, 6),
+                entry(5, 1),
+                entry(6, 2),
+                entry(7, 8),
+                entry(8, 9),
+                entry(9, 7),
+                entry(10, 11),
+                entry(11, 12),
+                entry(12, 10)
+        );
+        return createExtendedNode(node, swaps, 2);
     }
 
-    Node operationLeftWheelLeft(Node node) {
-        Map<Integer, Color> board = node.getBoard();
-        Map<Integer, Color> newBoard = node.getBoardCopy();
-
-        newBoard.put(1, board.get(5));
-        newBoard.put(2, board.get(6));
-        newBoard.put(3, board.get(1));
-        newBoard.put(4, board.get(2));
-        newBoard.put(5, board.get(3));
-        newBoard.put(6, board.get(4));
-        newBoard.put(7, board.get(9));
-        newBoard.put(8, board.get(7));
-        newBoard.put(9, board.get(8));
-        newBoard.put(10, board.get(12));
-        newBoard.put(11, board.get(10));
-        newBoard.put(12, board.get(11));
-
-        List<Integer> newPath = node.getPathCopy();
-        newPath.add(3);
-        Node newNode = new Node(newPath, newBoard);
-        return newNode;
+    private Node operationLeftWheelLeft(Node node) {
+        Map<Integer, Integer> swaps = Map.ofEntries(
+                entry(1, 5),
+                entry(2, 6),
+                entry(3, 1),
+                entry(4, 2),
+                entry(5, 3),
+                entry(6, 4),
+                entry(7, 9),
+                entry(8, 7),
+                entry(9, 8),
+                entry(10, 12),
+                entry(11, 10),
+                entry(12, 11)
+        );
+        return createExtendedNode(node, swaps, 3);
     }
 
-    boolean isClosed(Node node) {
-        return closedNodes.contains(node.hashCode());
+    private Node createExtendedNode(Node node, Map<Integer, Integer> swaps, Integer operationId) {
+        Board board = node.getBoard();
+        Board newBoard = board.swapColors(swaps);
+
+        List<Integer> newPath = new ArrayList<>(node.getPath());
+        newPath.add(operationId);
+        return new Node(newPath, newBoard);
     }
 
-    boolean isTarget(Node node) {
-        Map<Integer, Color> board = node.getBoard();
-        return board.get(5).equals(Color.ORANGE)
-                && board.get(6).equals(Color.ORANGE)
-                && board.get(7).equals(Color.ORANGE)
-                && board.get(9).equals(Color.ORANGE)
-                && board.get(10).equals(Color.ORANGE)
-                && board.get(13).equals(board.get(14))
-                && board.get(14).equals(board.get(15))
-                && board.get(15).equals(board.get(16))
-                && board.get(16).equals(board.get(17))
-                && board.get(17).equals(board.get(18))
-                && board.get(18).equals(board.get(19));
+    private boolean isNotClosed(Node node) {
+        return !closedNodeHashes.contains(node.hashCode());
     }
 
-    boolean isTarget(Node node, Map<Integer, Color> targetBoard) {
-        return node.compareBoardTo(targetBoard);
+    private boolean isTarget(Node node) {
+        for (Board targetBoard : Board.TARGET_BOARDS) {
+            if (node.isBoardTheSameAs(targetBoard)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void generateOpenNodes(Node node) {
+        Node rr = operationRightWheelRight(node);
+        if (isNotClosed(rr)) {
+            openNodes.add(rr);
+        }
+
+        Node rl = operationRightWheelLeft(node);
+        if (isNotClosed(rl)) {
+            openNodes.add(rl);
+        }
+
+        Node lr = operationLeftWheelRight(node);
+        if (isNotClosed(lr)) {
+            openNodes.add(lr);
+        }
+
+        Node ll = operationLeftWheelLeft(node);
+        if (isNotClosed(ll)) {
+            openNodes.add(ll);
+        }
     }
 
     private void solve() {
@@ -134,38 +136,24 @@ public class Puzzle {
             if (openNodes.isEmpty()) {
                 break;
             }
+
             Node node = openNodes.remove();
-            if (isTarget(node, targetBoard)) {
+
+            if (isTarget(node)) {
                 System.out.println(node.getMovesFromPath());
                 return;
             }
 
-            Node rr = operationRightWheelRight(node);
-            if (!isClosed(rr)) {
-                openNodes.add(rr);
-            }
+            generateOpenNodes(node);
 
-            Node rl = operationRightWheelLeft(node);
-            if (!isClosed(rl)) {
-                openNodes.add(rl);
-            }
-
-            Node lr = operationLeftWheelRight(node);
-            if (!isClosed(lr)) {
-                openNodes.add(lr);
-            }
-
-            Node ll = operationLeftWheelLeft(node);
-            if (!isClosed(ll)) {
-                openNodes.add(ll);
-            }
-
-            closedNodes.add(node.hashCode());
+            closedNodeHashes.add(node.hashCode());
             moves++;
         }
+
         System.out.println("No solution");
-        System.out.println("Closed " + closedNodes.size());
+        System.out.println("Closed " + closedNodeHashes.size());
         System.out.println("Open " + openNodes.size());
+
         if (openNodes.size() > 0) {
             System.out.println(openNodes.remove().getPath());
         }
@@ -173,13 +161,15 @@ public class Puzzle {
 
     private void init() {
         Node start = new Node(new ArrayList<>(), Board.START);
-        targetBoard = Board.SOLUTION_LEFT_YELLOW;
         openNodes.add(start);
     }
 
     public static void main(String[] args) {
+        long startTime = System.currentTimeMillis();
         Puzzle puzzle = new Puzzle();
         puzzle.init();
         puzzle.solve();
+        long endTime = System.currentTimeMillis();
+        System.out.println(endTime - startTime);
     }
 }

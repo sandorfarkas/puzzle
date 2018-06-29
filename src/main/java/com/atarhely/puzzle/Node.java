@@ -3,34 +3,18 @@ package com.atarhely.puzzle;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 public class Node {
     @Getter private final List<Integer> path;
-    @Getter private final Map<Integer, Color> board;
+    @Getter private final Board board;
 
-    public List<Integer> getPathCopy() {
-        List<Integer> copiedPath = new ArrayList<>();
-        copiedPath.addAll(path);
-        return copiedPath;
+    boolean isBoardTheSameAs(Board board) {
+        return this.board.getColorMap().equals(board.getColorMap());
     }
 
-    public Map<Integer, Color> getBoardCopy() {
-        Map<Integer, Color> copiedBoard = new HashMap<>();
-        board.entrySet().stream()
-                .forEach(map -> copiedBoard.put(map.getKey(), map.getValue()));
-        return copiedBoard;
-    }
-
-    public boolean compareBoardTo(Map<Integer, Color> board) {
-        return this.board.equals(board);
-    }
-
-    public String getMovesFromPath() {
+    String getMovesFromPath() {
         StringBuilder sb = new StringBuilder();
         for (Integer i : path) {
             switch (i) {
@@ -50,31 +34,31 @@ public class Node {
 
         Node node = (Node) o;
 
-        return board != null ? board.equals(node.board) : node.board == null;
+        return board != null ? board.getColorMap().equals(node.board.getColorMap()) : node.board == null;
     }
 
     @Override
     public int hashCode() {
-        String hash = "" + board.get(1).ordinal()
-                + board.get(1).ordinal()
-                + board.get(2).ordinal()
-                + board.get(3).ordinal()
-                + board.get(4).ordinal()
-                + board.get(5).ordinal()
-                + board.get(6).ordinal()
-                + board.get(7).ordinal()
-                + board.get(8).ordinal()
-                + board.get(9).ordinal()
-                + board.get(10).ordinal()
-                + board.get(11).ordinal()
-                + board.get(12).ordinal()
-                + board.get(13).ordinal()
-                + board.get(14).ordinal()
-                + board.get(15).ordinal()
-                + board.get(16).ordinal()
-                + board.get(17).ordinal()
-                + board.get(18).ordinal()
-                + board.get(19).ordinal();
+        String hash = "" + board.getColorMap().get(1).ordinal()
+                + board.getColorMap().get(1).ordinal()
+                + board.getColorMap().get(2).ordinal()
+                + board.getColorMap().get(3).ordinal()
+                + board.getColorMap().get(4).ordinal()
+                + board.getColorMap().get(5).ordinal()
+                + board.getColorMap().get(6).ordinal()
+                + board.getColorMap().get(7).ordinal()
+                + board.getColorMap().get(8).ordinal()
+                + board.getColorMap().get(9).ordinal()
+                + board.getColorMap().get(10).ordinal()
+                + board.getColorMap().get(11).ordinal()
+                + board.getColorMap().get(12).ordinal()
+                + board.getColorMap().get(13).ordinal()
+                + board.getColorMap().get(14).ordinal()
+                + board.getColorMap().get(15).ordinal()
+                + board.getColorMap().get(16).ordinal()
+                + board.getColorMap().get(17).ordinal()
+                + board.getColorMap().get(18).ordinal()
+                + board.getColorMap().get(19).ordinal();
         return board != null ? hash.hashCode() : 0;
     }
 }
