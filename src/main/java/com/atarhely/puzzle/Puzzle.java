@@ -6,13 +6,13 @@ import java.util.*;
 
 @RequiredArgsConstructor
 public class Puzzle {
-    private final int MAX_MOVES = 20_000_000;
-	Map<Integer, Color> targetBoard = new HashMap<>();
-    
+    private static final int MAX_MOVES = 20_000_000;
+    Map<Integer, Color> targetBoard = new HashMap<>();
+
     final Set<Integer> closedNodes = new HashSet<>();
     private final Queue<Node> openNodes = new ArrayDeque<>();
 
-    private Node operationRightWheelRight(Node node) {
+    Node operationRightWheelRight(Node node) {
         Map<Integer, Color> board = node.getBoard();
         Map<Integer, Color> newBoard = node.getBoardCopy();
 
@@ -35,7 +35,7 @@ public class Puzzle {
         return newNode;
     }
 
-    private Node operationRightWheelLeft(Node node) {
+    Node operationRightWheelLeft(Node node) {
         Map<Integer, Color> board = node.getBoard();
         Map<Integer, Color> newBoard = node.getBoardCopy();
 
@@ -58,7 +58,7 @@ public class Puzzle {
         return newNode;
     }
 
-    private Node operationLeftWheelRight(Node node) {
+    Node operationLeftWheelRight(Node node) {
         Map<Integer, Color> board = node.getBoard();
         Map<Integer, Color> newBoard = node.getBoardCopy();
 
@@ -81,7 +81,7 @@ public class Puzzle {
         return newNode;
     }
 
-    private Node operationLeftWheelLeft(Node node) {
+    Node operationLeftWheelLeft(Node node) {
         Map<Integer, Color> board = node.getBoard();
         Map<Integer, Color> newBoard = node.getBoardCopy();
 
@@ -172,8 +172,8 @@ public class Puzzle {
     }
 
     private void init() {
-        Node start = new Node(new ArrayList<>(), Board.SOLUTION_LEFT_BLUE);
-        targetBoard = Board.STARS;
+        Node start = new Node(new ArrayList<>(), Board.START);
+        targetBoard = Board.SOLUTION_LEFT_YELLOW;
         openNodes.add(start);
     }
 

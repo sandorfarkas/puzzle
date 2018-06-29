@@ -3,16 +3,16 @@ package com.atarhely.puzzle;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Board {
-	public static final Map<Integer, Color> SOLUTION_LEFT_YELLOW = new HashMap<>();
-	public static final Map<Integer, Color> SOLUTION_LEFT_BLUE = new HashMap<>();
-	public static final Map<Integer, Color> MIXED_BOARD = new HashMap<>();
-	public static final Map<Integer, Color> MIXED_BOARD_UPSIDE_DOWN = new HashMap<>();
-	public static final Map<Integer, Color> MIDDLE_ELEMENTS_SWAPPED_VER_1 = new HashMap<>();
-	public static final Map<Integer, Color> MIDDLE_ELEMENTS_SWAPPED_VER_2 = new HashMap<>();
-	public static final Map<Integer, Color> OUTER_SWAPPED = new HashMap<>();
-	public static final Map<Integer, Color> START = new HashMap<>();
-	public static final Map<Integer, Color> STARS = new HashMap<>();
+class Board {
+	static final Map<Integer, Color> SOLUTION_LEFT_YELLOW = new HashMap<>();
+	static final Map<Integer, Color> SOLUTION_LEFT_BLUE = new HashMap<>();
+	static final Map<Integer, Color> MIXED_BOARD = new HashMap<>();
+	static final Map<Integer, Color> MIXED_BOARD_UPSIDE_DOWN = new HashMap<>();
+	static final Map<Integer, Color> MIDDLE_ELEMENTS_SWAPPED_VER_1 = new HashMap<>();
+	static final Map<Integer, Color> MIDDLE_ELEMENTS_SWAPPED_VER_2 = new HashMap<>();
+	static final Map<Integer, Color> OUTER_SWAPPED = new HashMap<>();
+	static final Map<Integer, Color> START = new HashMap<>();
+	static final Map<Integer, Color> STARS = new HashMap<>();
 	
 	static {
 		SOLUTION_LEFT_YELLOW.put(1, Color.YELLOW);
