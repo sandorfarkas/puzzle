@@ -14,7 +14,7 @@ import com.atarhely.puzzle.board.TurnRightWheelLeftOperation;
 import com.atarhely.puzzle.board.TurnRightWheelRightOperation;
 
 @RequiredArgsConstructor
-public class Puzzle {
+public class PuzzleApplication {
 	private static final int MAX_MOVES = 20_000_000;
 	private static final TurnLeftWheelLeftOperation TURN_LEFT_WHEEL_LEFT = new TurnLeftWheelLeftOperation();
 	private static final TurnLeftWheelRightOperation TURN_LEFT_WHEEL_RIGHT = new TurnLeftWheelRightOperation();
@@ -86,9 +86,9 @@ public class Puzzle {
 	public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
 		
-		Puzzle puzzle = new Puzzle();
-		puzzle.init();
-		puzzle.solve();
+		PuzzleApplication puzzleApplication = new PuzzleApplication();
+		puzzleApplication.init();
+		puzzleApplication.solve();
 		
 		long endTime = System.currentTimeMillis();
 		System.out.println(endTime - startTime);

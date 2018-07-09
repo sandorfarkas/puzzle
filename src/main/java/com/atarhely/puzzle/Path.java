@@ -14,9 +14,9 @@ public class Path {
 	
 	private final List<Operation> stepsInPath;
 	
-	Path getCopyWithStepAdded(Operation step) {
+	Path getCopyWithStepAdded(Operation operationStep) {
 		List<Operation> newStepsInPath = new ArrayList<>(stepsInPath);
-		newStepsInPath.add(step);
+		newStepsInPath.add(operationStep);
 		
 		return new Path(newStepsInPath);
 	}

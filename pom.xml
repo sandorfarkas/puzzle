@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.atarhely</groupId>
-	<artifactId>puzzle</artifactId>
+	<artifactId>puzzleApplication</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
 	<dependencies>

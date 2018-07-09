@@ -11,13 +11,9 @@ public class Node {
 	@Getter private final Path path;
 	@Getter private final Board board;
 	
-	boolean isBoardTheSameAs(Board board) {
-		return this.board.getColorMap().equals(board.getColorMap());
-	}
-	
 	boolean hasTargetBoard() {
 		for (Board targetBoard : Board.TARGET_BOARDS) {
-			if (isBoardTheSameAs(targetBoard)) {
+			if (board.equals(targetBoard)) {
 				return true;
 			}
 		}
