@@ -15,13 +15,21 @@ public class Node {
 		return this.board.getColorMap().equals(board.getColorMap());
 	}
 	
+	boolean hasTargetBoard() {
+		for (Board targetBoard : Board.TARGET_BOARDS) {
+			if (isBoardTheSameAs(targetBoard)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	Node getExtendedNode(Operation operation) {
 		Path newPath = path.getCopyWithStepAdded(operation);
 		Board newBoard = operation.getBoardCopyWithSwappedColors(board);
 		
 		return new Node(newPath, newBoard);
 	}
-	
 	
 	@Override
 	public boolean equals(Object o) {
@@ -39,26 +47,6 @@ public class Node {
 	
 	@Override
 	public int hashCode() {
-		String hash = "" + board.getColorMap().get(1).ordinal()
-				+ board.getColorMap().get(1).ordinal()
-				+ board.getColorMap().get(2).ordinal()
-				+ board.getColorMap().get(3).ordinal()
-				+ board.getColorMap().get(4).ordinal()
-				+ board.getColorMap().get(5).ordinal()
-				+ board.getColorMap().get(6).ordinal()
-				+ board.getColorMap().get(7).ordinal()
-				+ board.getColorMap().get(8).ordinal()
-				+ board.getColorMap().get(9).ordinal()
-				+ board.getColorMap().get(10).ordinal()
-				+ board.getColorMap().get(11).ordinal()
-				+ board.getColorMap().get(12).ordinal()
-				+ board.getColorMap().get(13).ordinal()
-				+ board.getColorMap().get(14).ordinal()
-				+ board.getColorMap().get(15).ordinal()
-				+ board.getColorMap().get(16).ordinal()
-				+ board.getColorMap().get(17).ordinal()
-				+ board.getColorMap().get(18).ordinal()
-				+ board.getColorMap().get(19).ordinal();
-		return board != null ? hash.hashCode() : 0;
+		return board.hashCode();
 	}
 }

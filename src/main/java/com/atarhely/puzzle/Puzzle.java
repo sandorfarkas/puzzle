@@ -16,10 +16,10 @@ import com.atarhely.puzzle.board.TurnRightWheelRightOperation;
 @RequiredArgsConstructor
 public class Puzzle {
 	private static final int MAX_MOVES = 20_000_000;
-	private static final TurnLeftWheelLeftOperation TURN_LEFT_WHEEL_LEFT_OPERATION = new TurnLeftWheelLeftOperation();
-	private static final TurnLeftWheelRightOperation TURN_LEFT_WHEEL_RIGHT_OPERATION = new TurnLeftWheelRightOperation();
-	private static final TurnRightWheelLeftOperation TURN_RIGHT_WHEEL_LEFT_OPERATION = new TurnRightWheelLeftOperation();
-	private static final TurnRightWheelRightOperation TURN_RIGHT_WHEEL_RIGHT_OPERATION = new TurnRightWheelRightOperation();
+	private static final TurnLeftWheelLeftOperation TURN_LEFT_WHEEL_LEFT = new TurnLeftWheelLeftOperation();
+	private static final TurnLeftWheelRightOperation TURN_LEFT_WHEEL_RIGHT = new TurnLeftWheelRightOperation();
+	private static final TurnRightWheelLeftOperation TURN_RIGHT_WHEEL_LEFT = new TurnRightWheelLeftOperation();
+	private static final TurnRightWheelRightOperation TURN_RIGHT_WHEEL_RIGHT = new TurnRightWheelRightOperation();
 	
 	private final Set<Integer> closedNodeHashes = new HashSet<>();
 	private final Queue<Node> openNodes = new ArrayDeque<>();
@@ -28,29 +28,20 @@ public class Puzzle {
 		return !closedNodeHashes.contains(node.hashCode());
 	}
 	
-	private boolean isTarget(Node node) {
-		for (Board targetBoard : Board.TARGET_BOARDS) {
-			if (node.isBoardTheSameAs(targetBoard)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
 	private void generateOpenNodes(Node node) {
-		Node ll = node.getExtendedNode(TURN_LEFT_WHEEL_LEFT_OPERATION);
+		Node ll = node.getExtendedNode(TURN_LEFT_WHEEL_LEFT);
 		if (isNotClosed(ll)) {
 			openNodes.add(ll);
 		}
-		Node lr = node.getExtendedNode(TURN_LEFT_WHEEL_RIGHT_OPERATION);
+		Node lr = node.getExtendedNode(TURN_LEFT_WHEEL_RIGHT);
 		if (isNotClosed(lr)) {
 			openNodes.add(lr);
 		}
-		Node rl = node.getExtendedNode(TURN_RIGHT_WHEEL_LEFT_OPERATION);
+		Node rl = node.getExtendedNode(TURN_RIGHT_WHEEL_LEFT);
 		if (isNotClosed(rl)) {
 			openNodes.add(rl);
 		}
-		Node rr = node.getExtendedNode(TURN_RIGHT_WHEEL_RIGHT_OPERATION);
+		Node rr = node.getExtendedNode(TURN_RIGHT_WHEEL_RIGHT);
 		if (isNotClosed(rr)) {
 			openNodes.add(rr);
 		}
@@ -66,7 +57,8 @@ public class Puzzle {
 			
 			Node node = openNodes.remove();
 			
-			if (isTarget(node)) {
+			if (node.hasTargetBoard()) {
+				System.out.println("Number of steps: " + node.getPath().numberOfSteps());
 				System.out.println(node.getPath());
 				return;
 			}
@@ -93,9 +85,11 @@ public class Puzzle {
 	
 	public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
+		
 		Puzzle puzzle = new Puzzle();
 		puzzle.init();
 		puzzle.solve();
+		
 		long endTime = System.currentTimeMillis();
 		System.out.println(endTime - startTime);
 	}

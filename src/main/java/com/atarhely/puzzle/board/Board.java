@@ -16,27 +16,27 @@ import com.atarhely.puzzle.Color;
 @RequiredArgsConstructor
 public class Board {
 	public static final Board START = new Board(Map.ofEntries(
-			entry(1, YELLOW),
-			entry(2, BLUE),
-			entry(3, ORANGE),
+			entry(1, ORANGE),
+			entry(2, YELLOW),
+			entry(3, BLUE),
 			entry(4, YELLOW),
-			entry(5, YELLOW),
-			entry(6, ORANGE),
-			entry(7, ORANGE),
+			entry(5, ORANGE),
+			entry(6, YELLOW),
+			entry(7, YELLOW),
 			entry(8, BLUE),
 			entry(9, ORANGE),
-			entry(10, BLUE),
+			entry(10, ORANGE),
 			entry(11, BLUE),
-			entry(12, ORANGE),
+			entry(12, BLUE),
 			entry(13, BLUE),
 			entry(14, BLUE),
-			entry(15, YELLOW),
+			entry(15, ORANGE),
 			entry(16, BLUE),
 			entry(17, YELLOW),
 			entry(18, YELLOW),
 			entry(19, YELLOW)
 	));
-	public static final Board SOLUTION_LEFT_BLUE = new Board(Map.ofEntries(
+	private static final Board SOLUTION_LEFT_BLUE = new Board(Map.ofEntries(
 			entry(1, BLUE),
 			entry(2, BLUE),
 			entry(3, BLUE),
@@ -57,7 +57,7 @@ public class Board {
 			entry(18, YELLOW),
 			entry(19, YELLOW)
 	));
-	public static final Board SOLUTION_LEFT_YELLOW = new Board(Map.ofEntries(
+	private static final Board SOLUTION_LEFT_YELLOW = new Board(Map.ofEntries(
 			entry(1, YELLOW),
 			entry(2, YELLOW),
 			entry(3, YELLOW),
@@ -97,5 +97,14 @@ public class Board {
 			}
 		}
 		return true;
+	}
+	
+	@Override
+	public int hashCode() {
+		StringBuilder hashBase = new StringBuilder();
+		for (Map.Entry<Integer, Color> entry : colorMap.entrySet()) {
+			hashBase.append(entry.getValue().ordinal());
+		}
+		return hashBase.toString().hashCode();
 	}
 }

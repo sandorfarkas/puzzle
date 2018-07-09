@@ -21,6 +21,10 @@ public class Path {
 		return new Path(newStepsInPath);
 	}
 	
+	int numberOfSteps() {
+		return stepsInPath.size();
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
