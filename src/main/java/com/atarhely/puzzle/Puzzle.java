@@ -5,7 +5,6 @@ import static java.util.Map.entry;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
@@ -34,7 +33,7 @@ public class Puzzle {
 				entry(18, 19),
 				entry(19, 10)
 		);
-		return createExtendedNode(node, swaps, 0);
+		return node.getExtendedNode(swaps, 0);
 	}
 	
 	private Node operationRightWheelLeft(Node node) {
@@ -52,7 +51,7 @@ public class Puzzle {
 				entry(18, 10),
 				entry(19, 18)
 		);
-		return createExtendedNode(node, swaps, 1);
+		return node.getExtendedNode(swaps, 1);
 	}
 	
 	private Node operationLeftWheelRight(Node node) {
@@ -70,7 +69,7 @@ public class Puzzle {
 				entry(11, 12),
 				entry(12, 10)
 		);
-		return createExtendedNode(node, swaps, 2);
+		return node.getExtendedNode(swaps, 2);
 	}
 	
 	private Node operationLeftWheelLeft(Node node) {
@@ -88,16 +87,7 @@ public class Puzzle {
 				entry(11, 10),
 				entry(12, 11)
 		);
-		return createExtendedNode(node, swaps, 3);
-	}
-	
-	private Node createExtendedNode(Node node, Map<Integer, Integer> swaps, Integer operationId) {
-		Board board = node.getBoard();
-		Board newBoard = board.swapColors(swaps);
-		
-		List<Integer> newPath = new ArrayList<>(node.getPath());
-		newPath.add(operationId);
-		return new Node(newPath, newBoard);
+		return node.getExtendedNode(swaps, 3);
 	}
 	
 	private boolean isNotClosed(Node node) {
@@ -146,7 +136,7 @@ public class Puzzle {
 			Node node = openNodes.remove();
 			
 			if (isTarget(node)) {
-				System.out.println(node.getMovesFromPath());
+				System.out.println(node.getPath());
 				return;
 			}
 			
@@ -166,7 +156,7 @@ public class Puzzle {
 	}
 	
 	private void init() {
-		Node start = new Node(new ArrayList<>(), Board.START);
+		Node start = new Node(Path.GENESIS_PATH, Board.START);
 		openNodes.add(start);
 	}
 	

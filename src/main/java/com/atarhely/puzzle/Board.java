@@ -81,7 +81,7 @@ class Board {
 	
 	@Getter private final Map<Integer, Color> colorMap;
 	
-	Board swapColors(Map<Integer, Integer> swaps) {
+	Board getCopyWithSwappedColors(Map<Integer, Integer> swaps) {
 		Map<Integer, Color> swappedColorMap = new HashMap<>();
 		for (Map.Entry<Integer, Color> colorEntry : colorMap.entrySet()) {
 			swappedColorMap.put(colorEntry.getKey(),

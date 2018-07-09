@@ -1,39 +1,26 @@
 package com.atarhely.puzzle;
 
-import java.util.List;
+import java.util.Map;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 public class Node {
-	@Getter private final List<Integer> path;
+	@Getter private final Path path;
 	@Getter private final Board board;
 	
 	boolean isBoardTheSameAs(Board board) {
 		return this.board.getColorMap().equals(board.getColorMap());
 	}
 	
-	String getMovesFromPath() {
-		StringBuilder sb = new StringBuilder();
-		for (Integer i : path) {
-			switch (i) {
-				case 0:
-					sb.append("->)").append(System.lineSeparator());
-					break;
-				case 1:
-					sb.append("<-)").append(System.lineSeparator());
-					break;
-				case 2:
-					sb.append("(->").append(System.lineSeparator());
-					break;
-				case 3:
-					sb.append("(<-").append(System.lineSeparator());
-					break;
-			}
-		}
-		return sb.toString();
+	Node getExtendedNode(Map<Integer, Integer> swaps, Integer operationId) {
+		Path newPath = path.getCopyWithStepAdded(operationId);
+		Board newBoard = board.getCopyWithSwappedColors(swaps);
+		
+		return new Node(newPath, newBoard);
 	}
+	
 	
 	@Override
 	public boolean equals(Object o) {

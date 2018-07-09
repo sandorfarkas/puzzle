@@ -5,11 +5,8 @@ import static com.atarhely.puzzle.Color.ORANGE;
 import static com.atarhely.puzzle.Color.YELLOW;
 import static java.util.Map.entry;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -17,13 +14,6 @@ import java.util.stream.Stream;
 import org.junit.Test;
 
 public class NodeTest {
-	private final List<Integer> testPath = Stream.of(0, 1, 2, 3, 0, 1, 2, 3).collect(Collectors.toList());
-	private final String expectedMoves = "->)" + System.lineSeparator()
-			+ "<-)" + System.lineSeparator() + "(->" + System.lineSeparator()
-			+ "(<-" + System.lineSeparator() + "->)" + System.lineSeparator()
-			+ "<-)" + System.lineSeparator() + "(->" + System.lineSeparator()
-			+ "(<-" + System.lineSeparator();
-	
 	@Test
 	public void isBoardTheSameAs_ShouldReturnTrueIfBoardIsTheSame() {
 		Board board = new Board(Map.ofEntries(
@@ -31,7 +21,7 @@ public class NodeTest {
 				entry(2, YELLOW),
 				entry(3, ORANGE)
 		));
-		Node node = new Node(new ArrayList<>(), board);
+		Node node = new Node(Path.GENESIS_PATH, board);
 		Board compareBoard = new Board(Map.ofEntries(
 				entry(1, BLUE),
 				entry(2, YELLOW),
@@ -39,12 +29,5 @@ public class NodeTest {
 		));
 		
 		assertTrue(node.isBoardTheSameAs(compareBoard));
-	}
-	
-	@Test
-	public void getMovesFromPath_ShouldReturnCorrectPath() {
-		Node node = new Node(testPath, null);
-		
-		assertThat(node.getMovesFromPath(), is(expectedMoves));
 	}
 }

@@ -37,6 +37,6 @@ public class BoardTest {
 				entry(3, 2)
 		);
 		
-		assertTrue(board.swapColors(swaps).equals(targetBoard));
+		assertTrue(board.getCopyWithSwappedColors(swaps).equals(targetBoard));
 	}
 }
