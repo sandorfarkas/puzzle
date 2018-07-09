@@ -6,14 +6,16 @@ import java.util.List;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
+import com.atarhely.puzzle.board.Operation;
+
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public class Path {
 	static final Path GENESIS_PATH = new Path(new ArrayList<>());
 	
-	private final List<Integer> stepsInPath;
+	private final List<Operation> stepsInPath;
 	
-	Path getCopyWithStepAdded(Integer step) {
-		List<Integer> newStepsInPath = new ArrayList<>(stepsInPath);
+	Path getCopyWithStepAdded(Operation step) {
+		List<Operation> newStepsInPath = new ArrayList<>(stepsInPath);
 		newStepsInPath.add(step);
 		
 		return new Path(newStepsInPath);
@@ -22,21 +24,8 @@ public class Path {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		for (Integer i : stepsInPath) {
-			switch (i) {
-				case 0:
-					sb.append("->)").append(System.lineSeparator());
-					break;
-				case 1:
-					sb.append("<-)").append(System.lineSeparator());
-					break;
-				case 2:
-					sb.append("(->").append(System.lineSeparator());
-					break;
-				case 3:
-					sb.append("(<-").append(System.lineSeparator());
-					break;
-			}
+		for (Operation step : stepsInPath) {
+			sb.append(step).append(System.lineSeparator());
 		}
 		return sb.toString();
 	}

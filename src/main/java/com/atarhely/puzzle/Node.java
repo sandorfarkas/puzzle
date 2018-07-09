@@ -1,9 +1,10 @@
 package com.atarhely.puzzle;
 
-import java.util.Map;
-
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import com.atarhely.puzzle.board.Board;
+import com.atarhely.puzzle.board.Operation;
 
 @RequiredArgsConstructor
 public class Node {
@@ -14,9 +15,9 @@ public class Node {
 		return this.board.getColorMap().equals(board.getColorMap());
 	}
 	
-	Node getExtendedNode(Map<Integer, Integer> swaps, Integer operationId) {
-		Path newPath = path.getCopyWithStepAdded(operationId);
-		Board newBoard = board.getCopyWithSwappedColors(swaps);
+	Node getExtendedNode(Operation operation) {
+		Path newPath = path.getCopyWithStepAdded(operation);
+		Board newBoard = operation.getBoardCopyWithSwappedColors(board);
 		
 		return new Node(newPath, newBoard);
 	}

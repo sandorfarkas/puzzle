@@ -1,94 +1,28 @@
 package com.atarhely.puzzle;
 
-import static java.util.Map.entry;
-
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
 import lombok.RequiredArgsConstructor;
 
+import com.atarhely.puzzle.board.Board;
+import com.atarhely.puzzle.board.TurnLeftWheelLeftOperation;
+import com.atarhely.puzzle.board.TurnLeftWheelRightOperation;
+import com.atarhely.puzzle.board.TurnRightWheelLeftOperation;
+import com.atarhely.puzzle.board.TurnRightWheelRightOperation;
+
 @RequiredArgsConstructor
 public class Puzzle {
 	private static final int MAX_MOVES = 20_000_000;
+	private static final TurnLeftWheelLeftOperation TURN_LEFT_WHEEL_LEFT_OPERATION = new TurnLeftWheelLeftOperation();
+	private static final TurnLeftWheelRightOperation TURN_LEFT_WHEEL_RIGHT_OPERATION = new TurnLeftWheelRightOperation();
+	private static final TurnRightWheelLeftOperation TURN_RIGHT_WHEEL_LEFT_OPERATION = new TurnRightWheelLeftOperation();
+	private static final TurnRightWheelRightOperation TURN_RIGHT_WHEEL_RIGHT_OPERATION = new TurnRightWheelRightOperation();
 	
 	private final Set<Integer> closedNodeHashes = new HashSet<>();
 	private final Queue<Node> openNodes = new ArrayDeque<>();
-	
-	private Node operationRightWheelRight(Node node) {
-		Map<Integer, Integer> swaps = Map.ofEntries(
-				entry(15, 7),
-				entry(16, 9),
-				entry(7, 13),
-				entry(9, 14),
-				entry(13, 15),
-				entry(14, 16),
-				entry(6, 5),
-				entry(5, 17),
-				entry(17, 6),
-				entry(10, 18),
-				entry(18, 19),
-				entry(19, 10)
-		);
-		return node.getExtendedNode(swaps, 0);
-	}
-	
-	private Node operationRightWheelLeft(Node node) {
-		Map<Integer, Integer> swaps = Map.ofEntries(
-				entry(15, 13),
-				entry(16, 14),
-				entry(7, 15),
-				entry(9, 16),
-				entry(13, 7),
-				entry(14, 9),
-				entry(6, 17),
-				entry(5, 6),
-				entry(17, 5),
-				entry(10, 19),
-				entry(18, 10),
-				entry(19, 18)
-		);
-		return node.getExtendedNode(swaps, 1);
-	}
-	
-	private Node operationLeftWheelRight(Node node) {
-		Map<Integer, Integer> swaps = Map.ofEntries(
-				entry(1, 3),
-				entry(2, 4),
-				entry(3, 5),
-				entry(4, 6),
-				entry(5, 1),
-				entry(6, 2),
-				entry(7, 8),
-				entry(8, 9),
-				entry(9, 7),
-				entry(10, 11),
-				entry(11, 12),
-				entry(12, 10)
-		);
-		return node.getExtendedNode(swaps, 2);
-	}
-	
-	private Node operationLeftWheelLeft(Node node) {
-		Map<Integer, Integer> swaps = Map.ofEntries(
-				entry(1, 5),
-				entry(2, 6),
-				entry(3, 1),
-				entry(4, 2),
-				entry(5, 3),
-				entry(6, 4),
-				entry(7, 9),
-				entry(8, 7),
-				entry(9, 8),
-				entry(10, 12),
-				entry(11, 10),
-				entry(12, 11)
-		);
-		return node.getExtendedNode(swaps, 3);
-	}
 	
 	private boolean isNotClosed(Node node) {
 		return !closedNodeHashes.contains(node.hashCode());
@@ -104,24 +38,21 @@ public class Puzzle {
 	}
 	
 	private void generateOpenNodes(Node node) {
-		Node rr = operationRightWheelRight(node);
-		if (isNotClosed(rr)) {
-			openNodes.add(rr);
+		Node ll = node.getExtendedNode(TURN_LEFT_WHEEL_LEFT_OPERATION);
+		if (isNotClosed(ll)) {
+			openNodes.add(ll);
 		}
-		
-		Node rl = operationRightWheelLeft(node);
-		if (isNotClosed(rl)) {
-			openNodes.add(rl);
-		}
-		
-		Node lr = operationLeftWheelRight(node);
+		Node lr = node.getExtendedNode(TURN_LEFT_WHEEL_RIGHT_OPERATION);
 		if (isNotClosed(lr)) {
 			openNodes.add(lr);
 		}
-		
-		Node ll = operationLeftWheelLeft(node);
-		if (isNotClosed(ll)) {
-			openNodes.add(ll);
+		Node rl = node.getExtendedNode(TURN_RIGHT_WHEEL_LEFT_OPERATION);
+		if (isNotClosed(rl)) {
+			openNodes.add(rl);
+		}
+		Node rr = node.getExtendedNode(TURN_RIGHT_WHEEL_RIGHT_OPERATION);
+		if (isNotClosed(rr)) {
+			openNodes.add(rr);
 		}
 	}
 	

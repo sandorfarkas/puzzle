@@ -1,20 +1,21 @@
-package com.atarhely.puzzle;
+package com.atarhely.puzzle.board;
 
 import static com.atarhely.puzzle.Color.BLUE;
 import static com.atarhely.puzzle.Color.ORANGE;
 import static com.atarhely.puzzle.Color.YELLOW;
 import static java.util.Map.entry;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import com.atarhely.puzzle.Color;
+
 @RequiredArgsConstructor
-class Board {
-	static final Board START = new Board(Map.ofEntries(
+public class Board {
+	public static final Board START = new Board(Map.ofEntries(
 			entry(1, YELLOW),
 			entry(2, BLUE),
 			entry(3, ORANGE),
@@ -35,7 +36,7 @@ class Board {
 			entry(18, YELLOW),
 			entry(19, YELLOW)
 	));
-	private static final Board SOLUTION_LEFT_BLUE = new Board(Map.ofEntries(
+	public static final Board SOLUTION_LEFT_BLUE = new Board(Map.ofEntries(
 			entry(1, BLUE),
 			entry(2, BLUE),
 			entry(3, BLUE),
@@ -56,7 +57,7 @@ class Board {
 			entry(18, YELLOW),
 			entry(19, YELLOW)
 	));
-	private static final Board SOLUTION_LEFT_YELLOW = new Board(Map.ofEntries(
+	public static final Board SOLUTION_LEFT_YELLOW = new Board(Map.ofEntries(
 			entry(1, YELLOW),
 			entry(2, YELLOW),
 			entry(3, YELLOW),
@@ -77,20 +78,9 @@ class Board {
 			entry(18, BLUE),
 			entry(19, BLUE)
 	));
-	static final List<Board> TARGET_BOARDS = List.of(SOLUTION_LEFT_BLUE, SOLUTION_LEFT_YELLOW);
+	public static final List<Board> TARGET_BOARDS = List.of(SOLUTION_LEFT_BLUE, SOLUTION_LEFT_YELLOW);
 	
 	@Getter private final Map<Integer, Color> colorMap;
-	
-	Board getCopyWithSwappedColors(Map<Integer, Integer> swaps) {
-		Map<Integer, Color> swappedColorMap = new HashMap<>();
-		for (Map.Entry<Integer, Color> colorEntry : colorMap.entrySet()) {
-			swappedColorMap.put(colorEntry.getKey(),
-					(swaps.containsKey(colorEntry.getKey())
-							? colorMap.get(swaps.get(colorEntry.getKey()))
-							: colorEntry.getValue()));
-		}
-		return new Board(swappedColorMap);
-	}
 	
 	@Override
 	public boolean equals(Object o) {
