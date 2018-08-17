@@ -11,7 +11,7 @@ public class Node {
 	@Getter private final Path path;
 	@Getter private final Board board;
 	
-	boolean hasTargetBoard() {
+	public boolean hasTargetBoard() {
 		for (Board targetBoard : Board.TARGET_BOARDS) {
 			if (board.equals(targetBoard)) {
 				return true;
@@ -20,7 +20,7 @@ public class Node {
 		return false;
 	}
 	
-	Node getExtendedNode(Operation operation) {
+	public Node getExtendedNode(Operation operation) {
 		Path newPath = path.getCopyWithStepAdded(operation);
 		Board newBoard = operation.getBoardCopyWithSwappedColors(board);
 		

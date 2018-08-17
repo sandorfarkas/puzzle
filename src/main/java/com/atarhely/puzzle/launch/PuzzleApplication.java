@@ -1,28 +1,42 @@
-package com.atarhely.puzzle;
+package com.atarhely.puzzle.launch;
 
 import java.util.ArrayDeque;
 import java.util.HashSet;
 import java.util.Queue;
 import java.util.Set;
 
-import lombok.RequiredArgsConstructor;
-
+import com.atarhely.puzzle.Node;
+import com.atarhely.puzzle.Path;
 import com.atarhely.puzzle.board.Board;
 import com.atarhely.puzzle.board.TurnLeftWheelLeftOperation;
 import com.atarhely.puzzle.board.TurnLeftWheelRightOperation;
 import com.atarhely.puzzle.board.TurnRightWheelLeftOperation;
 import com.atarhely.puzzle.board.TurnRightWheelRightOperation;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 
-@RequiredArgsConstructor
 public class PuzzleApplication {
 	private static final int MAX_MOVES = 20_000_000;
-	private static final TurnLeftWheelLeftOperation TURN_LEFT_WHEEL_LEFT = new TurnLeftWheelLeftOperation();
-	private static final TurnLeftWheelRightOperation TURN_LEFT_WHEEL_RIGHT = new TurnLeftWheelRightOperation();
-	private static final TurnRightWheelLeftOperation TURN_RIGHT_WHEEL_LEFT = new TurnRightWheelLeftOperation();
-	private static final TurnRightWheelRightOperation TURN_RIGHT_WHEEL_RIGHT = new TurnRightWheelRightOperation();
+	
+	private final TurnLeftWheelLeftOperation TURN_LEFT_WHEEL_LEFT;
+	private final TurnLeftWheelRightOperation TURN_LEFT_WHEEL_RIGHT;
+	private final TurnRightWheelLeftOperation TURN_RIGHT_WHEEL_LEFT;
+	private final TurnRightWheelRightOperation TURN_RIGHT_WHEEL_RIGHT;
 	
 	private final Set<Integer> closedNodeHashes = new HashSet<>();
 	private final Queue<Node> openNodes = new ArrayDeque<>();
+	
+	@Inject
+	public PuzzleApplication(TurnLeftWheelLeftOperation turnLeftWheelLeftOperation,
+							 TurnLeftWheelRightOperation turnLeftWheelRightOperation,
+							 TurnRightWheelLeftOperation turnRightWheelLeftOperation,
+							 TurnRightWheelRightOperation turnRightWheelRightOperation) {
+		TURN_LEFT_WHEEL_LEFT = turnLeftWheelLeftOperation;
+		TURN_LEFT_WHEEL_RIGHT = turnLeftWheelRightOperation;
+		TURN_RIGHT_WHEEL_LEFT = turnRightWheelLeftOperation;
+		TURN_RIGHT_WHEEL_RIGHT = turnRightWheelRightOperation;
+	}
 	
 	private boolean isNotClosed(Node node) {
 		return !closedNodeHashes.contains(node.hashCode());
@@ -86,7 +100,9 @@ public class PuzzleApplication {
 	public static void main(String[] args) {
 		long startTime = System.currentTimeMillis();
 		
-		PuzzleApplication puzzleApplication = new PuzzleApplication();
+		Injector injector = Guice.createInjector(new PuzzleModule());
+		PuzzleApplication puzzleApplication = injector.getInstance(PuzzleApplication.class);
+		
 		puzzleApplication.init();
 		puzzleApplication.solve();
 		

@@ -10,7 +10,7 @@ import com.atarhely.puzzle.board.Operation;
 
 @RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 public class Path {
-	static final Path GENESIS_PATH = new Path(new ArrayList<>());
+	public static final Path GENESIS_PATH = new Path(new ArrayList<>());
 	
 	private final List<Operation> stepsInPath;
 	
@@ -21,7 +21,7 @@ public class Path {
 		return new Path(newStepsInPath);
 	}
 	
-	int numberOfSteps() {
+	public int numberOfSteps() {
 		return stepsInPath.size();
 	}
 	
