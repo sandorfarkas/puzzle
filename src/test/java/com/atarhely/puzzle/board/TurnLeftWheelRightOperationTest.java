@@ -4,11 +4,11 @@ import static com.atarhely.puzzle.Color.BLUE;
 import static com.atarhely.puzzle.Color.ORANGE;
 import static com.atarhely.puzzle.Color.YELLOW;
 import static java.util.Map.entry;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Map;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.atarhely.puzzle.Color;
 

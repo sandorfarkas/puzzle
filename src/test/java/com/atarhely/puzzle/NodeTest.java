@@ -4,13 +4,13 @@ import static com.atarhely.puzzle.Color.BLUE;
 import static com.atarhely.puzzle.Color.ORANGE;
 import static com.atarhely.puzzle.Color.YELLOW;
 import static java.util.Map.entry;
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import com.atarhely.puzzle.board.Board;
 
